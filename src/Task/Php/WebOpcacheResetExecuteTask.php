@@ -11,7 +11,21 @@ use TYPO3\Surf\Domain\Model\Deployment;
 use TYPO3\Surf\Domain\Model\Node;
 
 /**
- * A task to reset the PHP opcache by executing a prepared script with an HTTP request
+ * A task to reset the PHP opcache by executing a prepared script with an HTTP request.
+ *
+ * It takes the following options:
+ *
+ * * baseUrl - The path where the script is located.
+ * * scriptIdentifier - The name of the script. Default is a random string. See `WebOpcacheResetCreateScriptTask`
+ *   for more information.
+ *
+ * Example:
+ *  $workflow
+ *      ->setTaskOptions('TYPO3\Surf\Task\Php\WebOpcacheResetExecuteTask', [
+ *              'baseUrl' => '/var/www/outerspace',
+ *              'scriptIdentifier' => 'eraseAllHumans'
+ *          ]
+ *      );
  */
 class WebOpcacheResetExecuteTask extends \TYPO3\Surf\Domain\Model\Task
 {
