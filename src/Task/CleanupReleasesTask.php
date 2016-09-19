@@ -11,24 +11,28 @@ use TYPO3\Surf\Domain\Model\Deployment;
 use TYPO3\Surf\Domain\Model\Node;
 
 /**
- * A cleanup task to delete old (unused) releases
+ * A cleanup task to delete old (unused) releases.
  *
+ * Cleanup old releases by listing all releases and keeping a configurable
+ * number of old releases (application option "keepReleases"). The current
+ * and previous release (if one exists) are protected from removal.
+ *
+ * Note: There is no rollback for this cleanup, so we have to be sure not to delete any
+ *       live or referenced releases.
+ *
+ * It takes the following options:
+ *
+ * * keepReleases - The number of releases to keep.
+ *
+ * Example:
+ *  $application->setOption('keepReleases', 2);
  */
 class CleanupReleasesTask extends \TYPO3\Surf\Domain\Model\Task implements \TYPO3\Surf\Domain\Service\ShellCommandServiceAwareInterface
 {
     use \TYPO3\Surf\Domain\Service\ShellCommandServiceAwareTrait;
 
     /**
-     * Cleanup old releases by listing all releases and keeping a configurable
-     * number of old releases (application option "keepReleases"). The current
-     * and previous release (if one exists) are protected from removal.
-     *
-     * Example configuration:
-     *
-     *     $application->setOption('keepReleases', 2);
-     *
-     * Note: There is no rollback for this cleanup, so we have to be sure not to delete any
-     *       live or referenced releases.
+     * Execute this task
      *
      * @param \TYPO3\Surf\Domain\Model\Node $node
      * @param \TYPO3\Surf\Domain\Model\Application $application
