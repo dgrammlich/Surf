@@ -13,8 +13,25 @@ use TYPO3\Surf\Domain\Model\Task;
 use TYPO3\Surf\Exception\InvalidConfigurationException;
 
 /**
- * A task which can be used to tag a git repository and its submodules
+ * Tag a git repository and its submodules.
  *
+ * It takes the following options:
+ *
+ * * tagName - The name of the tag.
+ * * description - The description for the tag.
+ * * recurseIntoSubmodules (optional) - If true, tag submodules as well.
+ * * submoduleTagNamePrefix (optional) - Prefix for the submodule tags.
+ *
+ * Example:
+ *  $workflow
+ *      ->setTaskOptions('TYPO3\Surf\Task\Git\TagTask', [
+ *                  'tagName' => 'earth2',
+ *                  'description' => 'Another release to save the planet',
+ *                  'recurseIntoSubmodules' => true,
+ *                  'submoduleTagNamePrefix' => 'sub-'
+ *              ]
+ *          ]
+ *      );
  */
 class TagTask extends Task implements \TYPO3\Surf\Domain\Service\ShellCommandServiceAwareInterface
 {
@@ -22,12 +39,6 @@ class TagTask extends Task implements \TYPO3\Surf\Domain\Service\ShellCommandSer
 
     /**
      * Execute this task
-     *
-     * Options:
-     *   tagName: The tag name to use
-     *   description: The description for the tag
-     *   recurseIntoSubmodules: If true, tag submodules as well (optional)
-     *   submoduleTagNamePrefix: Prefix for the submodule tags (optional)
      *
      * @param \TYPO3\Surf\Domain\Model\Node $node
      * @param \TYPO3\Surf\Domain\Model\Application $application
