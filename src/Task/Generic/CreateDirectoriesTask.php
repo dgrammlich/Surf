@@ -11,7 +11,24 @@ use TYPO3\Surf\Domain\Model\Deployment;
 use TYPO3\Surf\Domain\Model\Node;
 
 /**
- * A task to create given directories for a release
+ * Creates directories for a release.
+ *
+ * It takes the following options:
+ *
+ * * baseDirectory (optional) - Can be set as base path.
+ * * directories - An array of directories to create. The paths can be relative to the baseDirectory, if set.
+ *
+ * Example:
+ *  $workflow
+ *      ->setTaskOptions('TYPO3\Surf\Task\Generic\CreateDirectoriesTask', [
+ *              'baseDirectory' => '/var/www/outerspace',
+ *              'directories' => [
+ *                  'uploads/spaceship',
+ *                  'uploads/freighter',
+ *                  '/tmp/outerspace/lonely_planet'
+ *              ]
+ *          ]
+ *      );
  */
 class CreateDirectoriesTask extends \TYPO3\Surf\Domain\Model\Task implements \TYPO3\Surf\Domain\Service\ShellCommandServiceAwareInterface
 {
