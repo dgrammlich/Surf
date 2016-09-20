@@ -11,10 +11,16 @@ use TYPO3\Surf\Domain\Model\Deployment;
 use TYPO3\Surf\Domain\Model\Node;
 
 /**
- * A task to create initial directories and the release directory for the current release
+ * A task to create initial directories and the release directory for the current release.
  *
  * This task will automatically create needed directories and create a symlink to the upcoming
  * release, called "next".
+ *
+ * It doesn't take any options, you have to configure the application.
+ *
+ * Example:
+ *  $application
+ *      ->setOption('deploymentPath', '/var/www/outerspace');
  */
 class CreateDirectoriesTask extends \TYPO3\Surf\Domain\Model\Task implements \TYPO3\Surf\Domain\Service\ShellCommandServiceAwareInterface
 {
