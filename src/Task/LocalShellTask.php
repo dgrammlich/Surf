@@ -11,18 +11,29 @@ use TYPO3\Surf\Domain\Model\Deployment;
 use TYPO3\Surf\Domain\Model\Node;
 
 /**
- * A shell task for local packaging
+ * A shell task for local packaging.
+ *
+ * It takes the following options:
+ *
+ * * command - The command to execute.
+ * * rollbackCommand (optional) - The command to execute as a rollback.
+ * * ignoreErrors (optional) - If true, ignore errors during execution. Default is true.
+ * * logOutput (optional) - If true, output the log. Default is false.
+ *
+ * Example:
+ *  $workflow
+ *      ->setTaskOptions('TYPO3\Surf\Task\LocalShellTask', [
+ *              'command' => mkdir -p /var/wwww/outerspace',
+ *              'rollbackCommand' => 'rm -rf /Var/www/outerspace'
+ *          ]
+ *      );
  */
 class LocalShellTask extends \TYPO3\Surf\Domain\Model\Task implements \TYPO3\Surf\Domain\Service\ShellCommandServiceAwareInterface
 {
     use \TYPO3\Surf\Domain\Service\ShellCommandServiceAwareTrait;
 
     /**
-     * Executes this task
-     *
-     * Options:
-     *   command: The command to execute
-     *   rollbackCommand: The command to execute as a rollback (optional)
+     * Execute this task
      *
      * @param \TYPO3\Surf\Domain\Model\Node $node
      * @param \TYPO3\Surf\Domain\Model\Application $application
