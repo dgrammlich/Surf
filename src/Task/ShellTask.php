@@ -11,19 +11,29 @@ use TYPO3\Surf\Domain\Model\Deployment;
 use TYPO3\Surf\Domain\Model\Node;
 
 /**
- * A generic shell task
+ * A task to execute shell commands on the remote host.
  *
+ * It takes the following options:
+ *
+ * * command - The command that should be executed on the remote host.
+ * * rollbackCommand (optional) - The command that reverses the changes.
+ * * ignoreErrors (optional) - If true, ignore errors during execution. Default is true.
+ * * logOutput (optional) - If true, output the log. Default is false.
+ *
+ * Example:
+ *  $workflow
+ *      ->setTaskOptions('TYPO3\Surf\Task\ShellTask', [
+ *              'command' => 'mkdir -p /var/www/outerspace',
+ *              'rollbackCommand' => 'rm -rf /var/www/outerspace'
+ *          ]
+ *      );
  */
 class ShellTask extends \TYPO3\Surf\Domain\Model\Task implements \TYPO3\Surf\Domain\Service\ShellCommandServiceAwareInterface
 {
     use \TYPO3\Surf\Domain\Service\ShellCommandServiceAwareTrait;
 
     /**
-     * Executes this task
-     *
-     * Options:
-     *   command: The command to execute
-     *   rollbackCommand: The command to execute as a rollback (optional)
+     * Execute this task
      *
      * @param \TYPO3\Surf\Domain\Model\Node $node
      * @param \TYPO3\Surf\Domain\Model\Application $application
