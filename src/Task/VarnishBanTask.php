@@ -11,13 +11,22 @@ use TYPO3\Surf\Domain\Model\Deployment;
 use TYPO3\Surf\Domain\Model\Node;
 
 /**
- * Task for banning in Varnish, should be used for Varnish 3.x
+ * Task for banning in Varnish, should be used for Varnish 3.x.
  *
  * It takes the following options:
  *
- * * secretFile - path to the secret file, defaults to "/etc/varnish/secret"
- * * banUrl - URL (pattern) to ban, defaults to ".*"
- * * varnishadm - path to the varnishadm utility, defaults to "/usr/bin/varnishadm"
+ * * secretFile (optional) - Path to the secret file, defaults to "/etc/varnish/secret".
+ * * banUrl (optional) - URL (pattern) to ban, defaults to ".*".
+ * * varnishadm (optional) - Path to the varnishadm utility, defaults to "/usr/bin/varnishadm".
+ *
+ * Example:
+ *  $workflow
+ *      ->setTaskOptions('TYPO3\Surf\Task\VarnishBanTask', [
+ *              'secretFile' => '/etc/varnish/secret',
+ *              'banUrl' => '.*',
+ *              'varnishadm' => '/usr/bin/varnishadm'
+ *          ]
+ *      );
  */
 class VarnishBanTask extends \TYPO3\Surf\Domain\Model\Task implements \TYPO3\Surf\Domain\Service\ShellCommandServiceAwareInterface
 {
