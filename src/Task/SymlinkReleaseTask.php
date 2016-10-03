@@ -11,7 +11,9 @@ use TYPO3\Surf\Domain\Model\Deployment;
 use TYPO3\Surf\Domain\Model\Node;
 
 /**
- * A symlink task for switching over the current directory to the new release
+ * A symlink task for switching over the current directory to the new release.
+ *
+ * It doesn't take any options.
  *
  */
 class SymlinkReleaseTask extends \TYPO3\Surf\Domain\Model\Task implements \TYPO3\Surf\Domain\Service\ShellCommandServiceAwareInterface
