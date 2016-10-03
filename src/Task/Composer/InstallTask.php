@@ -12,13 +12,30 @@ use TYPO3\Surf\Domain\Model\Deployment;
 use TYPO3\Surf\Domain\Model\Node;
 
 /**
- * Installs the composer packages based on a composer.json file in the projects root folder
+ * Installs the Composer packages based on a `composer.json` file in the projects root folder.
+ *
+ * It takes the following options:
+ *
+ * * composerCommandPath - The path where Composer is located.
+ * * nodeName - The name of the node where Composer should install the packages.
+ * * useApplicationWorkspace (optional) - If true Surf uses the workspace path, else it uses the release path of the application.
+ *
+ * Example:
+ *  $workflow
+ *      ->setTaskOptions('TYPO3\Surf\Task\Composer\InstallTask', [
+ *              'composerCommandPath' => '/usr/bin/composer',
+ *              'nodeName' => 'outerSpace',
+ *              'useApplicationWorkspace' => 'true'
+ *          ]
+ *      );
  */
 class InstallTask extends \TYPO3\Surf\Domain\Model\Task implements \TYPO3\Surf\Domain\Service\ShellCommandServiceAwareInterface
 {
     use \TYPO3\Surf\Domain\Service\ShellCommandServiceAwareTrait;
 
     /**
+     * Execute this task
+     *
      * @param \TYPO3\Surf\Domain\Model\Node $node
      * @param \TYPO3\Surf\Domain\Model\Application $application
      * @param \TYPO3\Surf\Domain\Model\Deployment $deployment
